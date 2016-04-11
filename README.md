@@ -1,3 +1,7 @@
 # NBA_Oracle_470
 
-Java-ML 0.1.7 Required as a dependency
+Java-ML 0.1.7 required as a dependency. In your Java IDE (we used Eclipse), you must add certain .jar files to your build path dependencies to get the code working properly. In particular, you will need "javaml-0.1.7.jar" (which is found in NBA_Oracle_470/javaml-0.1.7), as well as all of the files that are NBA_Oracle_470/javaml-0.1.7/lib.
+
+The code in its currrent form runs a simple test for our core algorithm. It uses the SMO algorithm takes in training data and then classifies ~300 teams into different classes based on their statistics relative to the training data. It then compares the prediction to the class that the team is actually in. Each of the classes represents a win percentage, and the results are rounded to the nearest whole number. For example, if a team had a win percentage of 50%, it would be put in the class designated by a "5". If it were 44%, it would be in the class designated by a "4". If it were 45%, it would be in class "5," and so on. The algorithm then calculates the percentage of predicted values that were the same as the real values. It currently gets about 55% correct, but if we expand the range to being off by one, then it increases significantly. However, except in cases where the teams are very close, this will still result in the right team being predicted. To remedy this, we used the k-Means algorithm to give a better prediction of who would win in close matchups.
+
+For an example of the algorithm predicting a winner, change the file that is being taken in on line 20 to "team_compare.csv". This will properly predict the winner between two teams, using given training data from "1415RDTeam_t.csv".
