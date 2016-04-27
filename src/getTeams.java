@@ -11,7 +11,7 @@ public class getTeams {
 	public static void extractTeams(String homeTeam, String homeSeason,boolean oldHome, String awayTeam, String awaySeason, boolean oldAway){
 		DBase db = new DBase();
 		Connection conn = db.connect(
-                "jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false","root","Gladius7210-O");
+                "jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false","root","*****");
 		String homeQuery;
 		String awayQuery;
 		
