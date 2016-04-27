@@ -81,7 +81,7 @@ teamHTMLs =	   ['http://www.dougstats.com/96-97RD.Team.html',
 
 
 def teamTable(filename):
-	mydb = MySQLdb.connect(host = 'localhost', user = 'root', passwd = 'Gladius7210-O', db = 'sys')
+	mydb = MySQLdb.connect(host = 'localhost', user = 'root', passwd = '*****', db = 'sys')
 	cursor = mydb.cursor()
 	csv_data = csv.reader(file(filename))
 	cursor.execute('DROP TABLE IF EXISTS `'+filename[:-4]+'`')
