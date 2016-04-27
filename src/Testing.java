@@ -16,61 +16,69 @@ public class Testing {
 	
 	public static void main(String[] args) throws IOException {
 
-		Dataset data = FileHandler.loadDataset(new File("1415RDTeam_t.csv"), 0, ",");
-		Dataset dataForClassification = FileHandler.loadDataset(new File("1415RDTeam_t.csv"), 0, ",");
-
+		Dataset dataTotal = FileHandler.loadDataset(new File("totalTeam.csv"), 0, ",");
+		Dataset dataAway = FileHandler.loadDataset(new File("awayTeam.csv"), 0, ",");
+		Dataset dataHome = FileHandler.loadDataset(new File("homeTeam.csv"), 0, ",");
+		Dataset dataForAwayTeamTotal = FileHandler.loadDataset(new File("away.csv"), 0, ",");
+		Dataset dataForHomeTeamTotal = FileHandler.loadDataset(new File("home.csv"), 0, ",");
 		double correct = 0, wrong = 0;
 		
+		int homePrediction = -1;
+		int awayPrediction = -1;
+		
 		double rate = 0.0;
-		int k = (int) Math.sqrt((double) data.size());
+		int k = (int) Math.sqrt((double) dataTotal.size());
 		
 		//Construct Knn classifier
 		Classifier knn;
 		knn = new KNearestNeighbors(k);
-		knn.buildClassifier(data);
+		knn.buildClassifier(dataTotal);
 		
-		//Construct SMO Classifier
-		SMO smo = new SMO();
-		Classifier javasmo = new WekaClassifier(smo);
-		javasmo.buildClassifier(data);
+		//Construct SMO Classifier for Total Data
+		SMO smoTotal = new SMO();
+		Classifier javasmoTotal = new WekaClassifier(smoTotal);
+		javasmoTotal.buildClassifier(dataTotal);
 		
+		//Construct SMO Classifier for Away Data
+		SMO smoAway = new SMO();
+		Classifier javasmoAway = new WekaClassifier(smoAway);
+		javasmoAway.buildClassifier(dataAway);
+		
+		//Construct SMO Classifier for Away Data
+		SMO smoHome = new SMO();
+		Classifier javasmoHome = new WekaClassifier(smoHome);
+		javasmoHome.buildClassifier(dataHome);		
 		/* Counters for correct and wrong predictions. */
-		Vector<Integer> predictions = new Vector<Integer>();
 		
-		/* Classify all instances and check with the correct class values */
-		for (Instance inst : dataForClassification) {
-		    Integer predictedValueSMO = Integer.parseInt((String) javasmo.classify(inst));
-
-		    Integer realClassValue = Integer.parseInt((String) inst.classValue());
-		    System.out.println("PREDICTED: " + predictedValueSMO + "   REAL VALUE: " + realClassValue);
-		    if (predictedValueSMO == realClassValue)
-		    	correct++;
-		    else
-		        wrong++;
-		    predictions.add(predictedValueSMO);
+		for (Instance inst : dataForHomeTeamTotal) {
+			Integer predictedValueSMO = Integer.parseInt((String) javasmoTotal.classify(inst));
+			homePrediction = predictedValueSMO;
 		}
 		
-		//Check if SMO prediction equal, if so perform KNN, otherwise output winner
-		if (predictions.get(0) == predictions.get(1)) {
-			for (Instance inst : dataForClassification) {
-				Integer predictedValueKNN = Integer.parseInt((String) knn.classify(inst));
-				predictions.add(predictedValueKNN);
-			}
-			if (predictions.get(2) > predictions.get(3)) {
-				System.out.println("Team 1 Wins with value: " + predictions.get(2) + " Team 2 was: " + predictions.get(3));
-			} else if (predictions.get(2) < predictions.get(3)) {
-				System.out.println("Team 2 Wins with value: " + predictions.get(3) + " Team 2 was: " + predictions.get(2));
-			} else {
-				System.out.println("They are Equal and are Team 1 = " + predictions.get(0) + " Team 2 = " + predictions.get(1));
-			}
-		} else if (predictions.get(0) > predictions.get(1)) {
-			System.out.println("Team 1 Wins with value: " + predictions.get(0) + " Team 2 was: " + predictions.get(1));
-		} else if (predictions.get(0) < predictions.get(1)) {
-			System.out.println("Team 2 Wins with value: " + predictions.get(1) + " Team 2 was: " + predictions.get(0));
+		for (Instance inst : dataForAwayTeamTotal) {
+			Integer predictedValueSMO = Integer.parseInt((String) javasmoAway.classify(inst));
+			awayPrediction = predictedValueSMO;
+		}
+		System.out.println("TOTAL SMO = Predicted Home Team: " + homePrediction + "   Predicted Away Team: " + awayPrediction);
+		
+		for (Instance inst : dataForAwayTeamTotal) {
+			Integer predictedValueSMO = Integer.parseInt((String) javasmoTotal.classify(inst));
+			awayPrediction = predictedValueSMO;
 		}
 		
-		rate = correct/(correct+wrong);
-		System.out.println("Percentage Correct: "+rate);
+		System.out.println("TOTAL SMO = Predicted Home Team: " + homePrediction + "   Predicted Away Team: " + awayPrediction);
+		
+		for (Instance inst : dataForHomeTeamTotal) {
+			Integer predictedValueSMO = Integer.parseInt((String) knn.classify(inst));
+			homePrediction = predictedValueSMO;
+		}
+		
+		for (Instance inst : dataForAwayTeamTotal) {
+			Integer predictedValueSMO = Integer.parseInt((String) knn.classify(inst));
+			awayPrediction = predictedValueSMO;
+		}
+		
+		System.out.println("TOTAL KNN = Predicted Home Team: " + homePrediction + "   Predicted Away Team: " + awayPrediction);
 		
 	}
 
