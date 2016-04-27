@@ -84,8 +84,8 @@ public class Testing {
 		Dataset dataForAwayTeamTotal = FileHandler.loadDataset(new File("awayTotal.csv"), 0, ",");
 		Dataset dataForHomeTeamTotal = FileHandler.loadDataset(new File("homeTotal.csv"), 0, ",");
 		
-		Dataset dataForAwayTeamAway;
-		Dataset dataForHomeTeamHome;
+		Dataset dataForAwayTeamAway = null;
+		Dataset dataForHomeTeamHome = null;
 		if (performAwayHomeTest) {
 			dataForAwayTeamAway = FileHandler.loadDataset(new File("away.csv"), 0, ",");
 			dataForHomeTeamHome = FileHandler.loadDataset(new File("home.csv"), 0, ",");
@@ -153,25 +153,25 @@ public class Testing {
 		if (performAwayHomeTest) {
 			System.out.println("PERFORMING AWAY HOME TEST");
 			//Test away team's away data on AWAY TOTAL SOM
-			for (Instance inst : dataForAwayTeamTotal) {
+			for (Instance inst : dataForAwayTeamAway) {
 				Integer predictedValueSMO = Integer.parseInt((String) javasmoAway.classify(inst));
 				awayAwaySOM = predictedValueSMO;
 			}
 			
 			//Test home team's home data on HOME TOTAL SOM
-			for (Instance inst : dataForHomeTeamTotal) {
+			for (Instance inst : dataForHomeTeamHome) {
 				Integer predictedValueSMO = Integer.parseInt((String) javasmoHome.classify(inst));
 				homeHomeSOM = predictedValueSMO;
 			}
 			
 			//Test away team's away data on AWAY TOTAL KNN
-			for (Instance inst : dataForAwayTeamTotal) {
+			for (Instance inst : dataForAwayTeamAway) {
 				Integer predictedValueSMO = Integer.parseInt((String) knnAway.classify(inst));
 				awayAwayKNN = predictedValueSMO;
 			}
 			
 			//Test home team's home data on HOME TOTAL KNN
-			for (Instance inst : dataForHomeTeamTotal) {
+			for (Instance inst : dataForHomeTeamHome) {
 				Integer predictedValueSMO = Integer.parseInt((String) knnHome.classify(inst));
 				homeHomeKNN = predictedValueSMO;
 			}
