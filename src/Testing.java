@@ -184,7 +184,7 @@ public class Testing {
 			System.out.println("HOME TEAM WINS WITH: " + totalHomePrediction + " vs. " + totalAwayPrediction);
 			
 		} else if (totalAwayPrediction > totalHomePrediction) {
-			System.out.println("AWAY TEAM WINS"+ totalAwayPrediction + " vs. " + totalHomePrediction);
+			System.out.println("AWAY TEAM WINS "+ totalAwayPrediction + " vs. " + totalHomePrediction);
 			
 		} else {
 			System.out.println("EFFECTIVELY A TIE");
