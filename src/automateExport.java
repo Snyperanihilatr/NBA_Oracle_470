@@ -13,7 +13,7 @@ public class automateExport {
     public static void main(String[] args) {
         DBase db = new DBase();
         Connection conn = db.connect(
-                "jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false","root","Gladius7210-O");
+                "jdbc:mysql://localhost:3306/sys?autoReconnect=true&useSSL=false","root","*****");
         String total = "(SELECT games_won,games_lost,minutes,fg_made,fg_attempts,3s_made,3s_attempts,ft_made,ft_attempts,off_rebounds,tot_rebounds,assists,steals,turnovers,blocks,personal_fouls,points FROM 0001RDTeam)"
         		+ "UNION"
         		+ "(select games_won,games_lost,minutes,fg_made,fg_attempts,3s_made,3s_attempts,ft_made,ft_attempts,off_rebounds,tot_rebounds,assists,steals,turnovers,blocks,personal_fouls,points FROM 0203RDTeam) "
