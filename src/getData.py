@@ -108,7 +108,7 @@ def teamTable(filename):
 	cursor.close()
 
 def oldTeamTable(filename):
-	mydb = MySQLdb.connect(host = 'localhost', user = 'root', passwd = 'Gladius7210-O', db = 'sys')
+	mydb = MySQLdb.connect(host = 'localhost', user = 'root', passwd = '********', db = 'sys')
 	cursor = mydb.cursor()
 	csv_data = csv.reader(file(filename))
 	cursor.execute('DROP TABLE IF EXISTS `'+filename[:-4]+'`')
@@ -196,7 +196,7 @@ for line in urllib2.urlopen("http://www.dougstats.com/15-16RD.txt"):
 	first_line = 0
 output.close()'''
 
-'''mydb = MySQLdb.connect(host = 'localhost', user = 'root', passwd = 'Gladius7210-O', db = 'sys')
+'''mydb = MySQLdb.connect(host = 'localhost', user = 'root', passwd = '*******', db = 'sys')
 cursor = mydb.cursor()
 csv_data = csv.reader(file('playerStats.csv'))
 cursor.execute('DROP TABLE IF EXISTS `playerstats`')
